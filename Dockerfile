@@ -32,6 +32,7 @@ RUN apt-get update \
     && apt-get -yq install \
         python3 \
         python3-launchpadlib \
+        python3-requests \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists
 
