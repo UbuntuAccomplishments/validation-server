@@ -1,6 +1,11 @@
 # Files and directories created by pub.
 .dart_tool/
 .packages
+# NPM packages
+node_modules/
 
 # Conventional directory for build output.
 build/
+public/bundle.js
+public/style.css
+public/style.css.map
