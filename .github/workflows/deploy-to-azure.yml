@@ -8,9 +8,9 @@ env:
   CONTAINER_REGISTRY: ${{ secrets.REGISTRY_URL }}
 
 jobs:
-  build-and-deploy-to-dev:
+  build-and-deploy-to-prod:
     runs-on: ubuntu-latest
-    environment: dev
+    environment: prod
     steps:
     - uses: actions/checkout@master
     - name: Azure authentication
@@ -25,8 +25,8 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}    
     - name: Docker Build & Push to ACR
       run: |
-        docker build . -t ${{ env.CONTAINER_REGISTRY }}/nodejsapp:${{ github.sha }}
-        docker push ${{ env.CONTAINER_REGISTRY }}/nodejsapp:${{ github.sha }} 
+        docker build . -t ${{ env.CONTAINER_REGISTRY }}/web-service:${{ github.sha }}
+        docker push ${{ env.CONTAINER_REGISTRY }}/web-service:${{ github.sha }} 
     - name: 'Deploy to Azure Web App for Container'
       uses: azure/webapps-deploy@v2
       with: 
