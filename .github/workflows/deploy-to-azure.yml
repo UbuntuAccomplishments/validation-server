@@ -5,7 +5,7 @@ on: push
 
 env:
   AZURE_WEBAPP_NAME: ubuntu-accomplishments
-  CONTAINER_REGISTRY: ${{ secrets.REGISTRY_URL }}
+  CONTAINER_IMAGE_NAME: diddledan/ubuntu-accomplishments-validation-server
 
 jobs:
   build-and-deploy-to-prod:
@@ -17,19 +17,13 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - name: ACR authentication
-      uses: azure/docker-login@v1
-      with:
-        login-server: ${{ env.CONTAINER_REGISTRY }}
-        username: ${{ secrets.REGISTRY_USERNAME }}
-        password: ${{ secrets.REGISTRY_PASSWORD }}    
     - name: Docker Build & Push to ACR
       run: |
-        docker build . -t ${{ env.CONTAINER_REGISTRY }}/web-service:${{ github.sha }}
-        docker push ${{ env.CONTAINER_REGISTRY }}/web-service:${{ github.sha }} 
+        docker build . -t ${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
+        docker push ${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }} 
     - name: 'Deploy to Azure Web App for Container'
       uses: azure/webapps-deploy@v2
       with: 
         app-name: ${{ env.AZURE_WEBAPP_NAME }} 
-        images: ${{ env.CONTAINER_REGISTRY }}/web-service:${{ github.sha }}
+        images: ${{ env.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
 #         startup-command: 'npm start'
