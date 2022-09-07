@@ -71,4 +71,5 @@ Future<String?> getScript(String accomID) async {
       }
     }
   }
+  return null;
 }
