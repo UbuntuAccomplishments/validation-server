@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_7a47e3f5ad4f40d6a1671406e68da73e }}/diddledani/ubuntu-accomplishments-validation-server:${{ github.sha }}
+        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_7a47e3f5ad4f40d6a1671406e68da73e }}/ubuntu-accomplishments-validation-server:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -48,4 +48,4 @@ jobs:
         app-name: 'ubuntu-accomplishments'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_476a286f88104a9384cbf575d491e6f0 }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_7a47e3f5ad4f40d6a1671406e68da73e }}/diddledani/ubuntu-accomplishments-validation-server:${{ github.sha }}'
+        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_7a47e3f5ad4f40d6a1671406e68da73e }}/ubuntu-accomplishments-validation-server:${{ github.sha }}'
